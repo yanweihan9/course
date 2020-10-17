@@ -22,4 +22,11 @@ eureka:
     service-url:
       defautZone: http://localhost:8761/eureka/
 
-
+# 日志打印级别
+logging:
+  level:
+    com:
+      course:
+        system:
+          mapper:
+            debug
