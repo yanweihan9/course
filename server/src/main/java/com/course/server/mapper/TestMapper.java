@@ -19,4 +19,6 @@ public interface TestMapper {
     int updateByExampleSelective(@Param("record") Test record, @Param("example") TestExample example);
 
     int updateByExample(@Param("record") Test record, @Param("example") TestExample example);
+
+    List<Test> list();
 }

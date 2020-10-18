@@ -115,7 +115,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="list" resultType="com.course.server.domain.Test">
+        select * from test;
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update test
     <set>
       <if test="record.id != null">
