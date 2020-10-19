@@ -7,10 +7,8 @@
 						<div class="center">
 							<h1>
 								<i class="ace-icon fa fa-leaf green"></i>
-								<span class="red">Ace</span>
-								<span class="white" id="id-text2">Application</span>
+								<span >控制台登录</span>
 							</h1>
-							<h4 class="blue" id="id-company-text">&copy; Company Name</h4>
 						</div>
 
 						<div class="space-6"></div>
@@ -21,7 +19,7 @@
 									<div class="widget-main">
 										<h4 class="header blue lighter bigger">
 											<i class="ace-icon fa fa-coffee green"></i>
-											Please Enter Your Information
+											请输入用户名密码
 										</h4>
 
 										<div class="space-6"></div>
@@ -47,12 +45,12 @@
 												<div class="clearfix">
 													<label class="inline">
 														<input type="checkbox" class="ace" />
-														<span class="lbl"> Remember Me</span>
+														<span class="lbl"> 记住我</span>
 													</label>
 
 													<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
 														<i class="ace-icon fa fa-key"></i>
-														<span class="bigger-110">Login</span>
+														<span class="bigger-110">登录</span>
 													</button>
 												</div>
 
@@ -60,42 +58,8 @@
 											</fieldset>
 										</form>
 
-										<div class="social-or-login center">
-											<span class="bigger-110">Or Login Using</span>
-										</div>
-
-										<div class="space-6"></div>
-
-										<div class="social-login center">
-											<a class="btn btn-primary">
-												<i class="ace-icon fa fa-facebook"></i>
-											</a>
-
-											<a class="btn btn-info">
-												<i class="ace-icon fa fa-twitter"></i>
-											</a>
-
-											<a class="btn btn-danger">
-												<i class="ace-icon fa fa-google-plus"></i>
-											</a>
-										</div>
 									</div><!-- /.widget-main -->
 
-									<div class="toolbar clearfix">
-										<div>
-											<a href="#" data-target="#forgot-box" class="forgot-password-link">
-												<i class="ace-icon fa fa-arrow-left"></i>
-												I forgot my password
-											</a>
-										</div>
-
-										<div>
-											<a href="#" data-target="#signup-box" class="user-signup-link">
-												I want to register
-												<i class="ace-icon fa fa-arrow-right"></i>
-											</a>
-										</div>
-									</div>
 								</div><!-- /.widget-body -->
 							</div><!-- /.login-box -->
 
