@@ -985,7 +985,8 @@
     export default {
         name: 'chapter',
         mounted: function() {
-            this.$parent.activeSidebar("business-chapter-sidebar")
+            // 页面激活方式一
+            // this.$parent.activeSidebar("business-chapter-sidebar")
         },
         methods: {
         }

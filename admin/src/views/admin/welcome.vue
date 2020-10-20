@@ -10,7 +10,8 @@
     export default {
         name: 'welcome',
         mounted: function() {
-            this.$parent.activeSidebar("welcome-sidebar")
+            // 页面激活方式一
+            // this.$parent.activeSidebar("welcome-sidebar")
         },
         methods: {
         }
