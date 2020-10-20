@@ -214,10 +214,12 @@
 </template>
 
 <script>
-    $('body').attr( 'no-skin');
-    $('body').attr('class', 'login-layout light-login');
     export default {
-        name: 'app',
+        name: 'login',
+        mounted: function() {
+            $('body').removeClass( 'no-skin');
+            $('body').attr('class', 'login-layout light-login');
+        },
         methods: {
             login() {
                 this.$router.push('/admin')
