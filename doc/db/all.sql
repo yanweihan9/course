@@ -6,3 +6,13 @@ CREATE TABLE `test` (
 
 INSERT INTO `course`.`test` (`id`, `name`) VALUES ('1', 'rr');
 
+# ------------------
+drop table if exists chapter;
+CREATE TABLE `chapter` (
+                        `id` char(8) not null comment 'ID',
+                        `course_id` char(8) comment '课程ID',
+                        `name` varchar(50) comment '名称',
+primary key (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment '大章';
+
+
