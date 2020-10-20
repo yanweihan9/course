@@ -15,4 +15,7 @@ CREATE TABLE `chapter` (
 primary key (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment '大章';
 
+INSERT INTO `course`.`chapter` (`id`,course_id, `name`) VALUES ('000','000', '测试大章节1');
+INSERT INTO `course`.`chapter` (`id`,course_id, `name`) VALUES ('001','002', '测试大章节2');
+
 
