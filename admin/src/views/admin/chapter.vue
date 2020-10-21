@@ -1,14 +1,6 @@
 <template>
     <table id="simple-table" class="table  table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>名称</th>
-            <th>课程ID</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-
+        <Title></Title>
         <tbody>
         <tr v-for="chapter in chapters">
             <td>{{chapter.id}}</td>
@@ -73,6 +65,8 @@
     </table>
 </template>
 <script>
+    import Title from '../admin/title';
+
     export default {
         name: 'chapter',
         data: function () {
@@ -80,6 +74,7 @@
                 chapters: []
             }
         },
+        components: {Title},
         mounted: function () {
             // 页面激活方式一
             // this.$parent.activeSidebar("business-chapter-sidebar")
@@ -89,7 +84,7 @@
         methods: {
             list() {
                 let _this = this;
-                _this.$ajax.get('http://127.0.0.1:9002/business/admin/chapter/list').then((response) => {
+                _this.$ajax.get('http://127.0.0.1:9000/business/admin/chapter/list').then((response) => {
                     console.log("查询大章列表结果:", response);
                     _this.chapters = response.data;
                 })

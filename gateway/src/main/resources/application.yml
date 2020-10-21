@@ -12,13 +12,12 @@ spring:
           name: Path
           # 请求system服务也要是/system开头，在system服务配置文件中用server.servlet.context-path=/system
           args[0]: /system/**
-#      routes[1]:
-#        id: system1
-#        uri: http://127.0.0.1:9002
-#        predicates[0]:
-#          name: Path
-#          # 请求system服务也要是/system开头，在system服务配置文件中用server.servlet.context-path=/system
-#          args[0]: /system1/**
+      routes[1]:
+        id: system1
+        uri: http://127.0.0.1:9002
+        predicates[0]:
+          name: Path
+          args[0]: /business/**
 server:
   port: 9000
 
