@@ -6,9 +6,11 @@ import com.course.server.dto.ChapterDto;
 import com.course.server.dto.PageDto;
 import com.course.server.mapper.ChapterMapper;
 import com.course.server.utils.CollectionUtils;
+import com.course.server.utils.UuidUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,5 +31,13 @@ public class ChapterService {
         List<ChapterDto> chapterDtoList = CollectionUtils.convert(chapterList, ChapterDto.class);
         page.setList(chapterDtoList);
         return page;
+    }
+
+    public ChapterDto save(ChapterDto chapterDto) {
+        chapterDto.setId(UuidUtil.getShortUuid());
+        Chapter chapter = new Chapter();
+        BeanUtils.copyProperties(chapterDto,chapter);
+        chapterMapper.insert(chapter);
+        return chapterDto;
     }
 }
