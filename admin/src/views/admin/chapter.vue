@@ -1,4 +1,11 @@
 <template>
+    <div>
+    <p>
+        <button v-on:click="list()" class="btn btn-white btn-default btn-round">
+            <i class="ace-icon fa fa-refresh red2"></i>
+            刷新
+        </button>
+    </p>
     <table id="simple-table" class="table  table-bordered table-hover">
         <Title></Title>
         <tbody>
@@ -63,6 +70,7 @@
         </tr>
         </tbody>
     </table>
+    </div>
 </template>
 <script>
     import Title from '../admin/title';
