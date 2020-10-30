@@ -1,7 +1,10 @@
 package com.course.business.controller.admin;
 
 import com.course.server.dto.ChapterDto;
+import com.course.server.dto.PageDto;
 import com.course.server.service.ChapterService;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +22,7 @@ public class ChapterController {
     private ChapterService chapterService;
 
     @RequestMapping("/list")
-    public List<ChapterDto> list() {
-        return chapterService.list();
+    public PageDto<ChapterDto> list(@RequestBody PageDto pageDto) {
+        return chapterService.list(pageDto);
     }
 }
