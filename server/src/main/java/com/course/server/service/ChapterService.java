@@ -56,4 +56,8 @@ public class ChapterService {
         chapterMapper.updateByPrimaryKey(chapter);
         return chapterDto;
     }
+
+    public Integer delete(String id) {
+        return chapterMapper.deleteByPrimaryKey(id);
+    }
 }
