@@ -1,86 +1,43 @@
 <template>
     <div>
-    <p>
-        <button v-on:click="add()" class="btn btn-white btn-default btn-round">
-            <i class="ace-icon fa fa-edit"></i>
-            新增
-        </button>
-        &nbsp;
-        <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
-            <i class="ace-icon fa fa-refresh"></i>
-            刷新
-        </button>
-    </p>
-    <pagination ref="pagination" v-bind:list="list"></pagination>
-    <table id="simple-table" class="table  table-bordered table-hover">
-        <Title></Title>
-        <tbody>
-        <tr v-for="chapter in chapters">
-            <td>{{chapter.id}}</td>
-            <td>{{chapter.courseId}}</td>
-            <td>{{chapter.name}}</td>
-            <td>
-                <div class="hidden-sm hidden-xs btn-group">
-                    <button class="btn btn-xs btn-success">
-                        <i class="ace-icon fa fa-check bigger-120"></i>
-                    </button>
-
-                    <button class="btn btn-xs btn-info">
-                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                    </button>
-
-                    <button class="btn btn-xs btn-danger">
-                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                    </button>
-
-                    <button class="btn btn-xs btn-warning">
-                        <i class="ace-icon fa fa-flag bigger-120"></i>
-                    </button>
-                </div>
-
-                <div class="hidden-md hidden-lg">
-                    <div class="inline pos-rel">
-                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"
-                                data-position="auto">
-                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+        <p>
+            <button v-on:click="add()" class="btn btn-white btn-default btn-round">
+                <i class="ace-icon fa fa-edit"></i>
+                新增
+            </button>
+            &nbsp;
+            <button v-on:click="list(1)" class="btn btn-white btn-default btn-round">
+                <i class="ace-icon fa fa-refresh"></i>
+                刷新
+            </button>
+        </p>
+        <pagination ref="pagination" v-bind:list="list"></pagination>
+        <table id="simple-table" class="table  table-bordered table-hover">
+            <Title></Title>
+            <tbody>
+            <tr v-for="chapter in chapters">
+                <td>{{chapter.id}}</td>
+                <td>{{chapter.courseId}}</td>
+                <td>{{chapter.name}}</td>
+                <td>
+                    <div class="hidden-sm hidden-xs btn-group">
+                        <button v-on:click="edit(chapter)" class="btn btn-xs btn-info">
+                            <i class="ace-icon fa fa-pencil bigger-120"></i>
                         </button>
-
-                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                            <li>
-                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                                    <span class="blue">
-                                                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                    </span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                                    <span class="green">
-                                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                    </span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                                    <span class="red">
-                                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                                    </span>
-                                </a>
-                            </li>
-                        </ul>
+                        <button class="btn btn-xs btn-danger">
+                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                        </button>
                     </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="modal fade" tabindex="-1" role="dialog">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">表单</h4>
                     </div>
                     <div class="modal-body">
@@ -88,13 +45,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">名称</label>
                                 <div class="col-sm-10">
-                                    <input v-model="chapter.name" class="form-control"  placeholder="名称">
+                                    <input v-model="chapter.name" class="form-control" placeholder="名称">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">课程id</label>
                                 <div class="col-sm-10">
-                                    <input  v-model="chapter.courseId" class="form-control"  placeholder="课程id">
+                                    <input v-model="chapter.courseId" class="form-control" placeholder="课程id">
                                 </div>
                             </div>
                         </form>
@@ -120,7 +77,7 @@
                 chapters: []
             }
         },
-        components: {Title,Pagination},
+        components: {Title, Pagination},
         mounted: function () {
             // 页面激活方式一
             // this.$parent.activeSidebar("business-chapter-sidebar")
@@ -131,6 +88,12 @@
         methods: {
             add() {
                 let _this = this;
+                _this.chapter = {};
+                $(".modal").modal("show");
+            },
+            edit(chapter) {
+                let _this = this;
+                _this.chapter = $.extend({}, chapter);
                 $(".modal").modal("show");
             },
 
@@ -149,7 +112,7 @@
             save() {
                 let _this = this;
                 _this.$ajax.post('http://127.0.0.1:9000/business/admin/chapter/save',
-                _this.chapter).then((response) => {
+                    _this.chapter).then((response) => {
                     console.log("保存大章列表结果:", response);
                 })
             }
