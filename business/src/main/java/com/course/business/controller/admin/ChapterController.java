@@ -4,6 +4,7 @@ import com.course.server.dto.ChapterDto;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.service.ChapterService;
+import com.course.server.utils.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,9 @@ public class ChapterController {
 
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
+        ValidatorUtil.require(chapterDto.getName(), "课程名称");
+        ValidatorUtil.require(chapterDto.getCourseId(), "课程id");
+        ValidatorUtil.length(chapterDto.getCourseId(), "课程id", 1, 8);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setContent(chapterService.save(chapterDto));
         return responseDto;
@@ -36,7 +40,7 @@ public class ChapterController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable("id") String id) {
-        log.info("删除id:{}",id);
+        log.info("删除id:{}", id);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setContent(chapterService.delete(id));
         return responseDto;

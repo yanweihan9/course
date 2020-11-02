@@ -8,10 +8,8 @@ import com.course.server.mapper.ChapterMapper;
 import com.course.server.utils.CollectionUtils;
 import com.course.server.utils.CopyUtil;
 import com.course.server.utils.UuidUtil;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -36,6 +34,7 @@ public class ChapterService {
     }
 
     public ChapterDto save(ChapterDto chapterDto) {
+
         if (StringUtils.isEmpty(chapterDto.getId())){
             insert(chapterDto);
             return chapterDto;
