@@ -23,6 +23,12 @@ public class ChapterController {
 
     public static final String BUSINESS_NAME = "大章";
 
+    /**
+     * 列表
+     *
+     * @param pageDto
+     * @return
+     */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto) {
         ResponseDto responseDto = new ResponseDto();
@@ -30,6 +36,12 @@ public class ChapterController {
         return responseDto;
     }
 
+    /**
+     * 保存
+     *
+     * @param chapterDto
+     * @return
+     */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ChapterDto chapterDto) {
         ValidatorUtil.require(chapterDto.getName(), "课程名称");
@@ -40,9 +52,14 @@ public class ChapterController {
         return responseDto;
     }
 
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable("id") String id) {
-        log.info("删除id:{}", id);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setContent(chapterService.delete(id));
         return responseDto;
