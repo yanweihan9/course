@@ -119,6 +119,7 @@
                     if (resp.success){
                         $(".modal").modal("hide");
                         _this.list(1);
+                        toast.success("保存成功！")
                     }
                 })
             },
@@ -132,7 +133,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: '确认!'
+                    confirmButtonText: '确认'
                 }).then((result) => {
                     if (result.value) {
                         _this.$ajax.delete('http://127.0.0.1:9000/business/admin/chapter/delete/'+ id).then((response) => {
@@ -140,11 +141,7 @@
                             let resp = response.data;
                             if (resp.success){
                                 _this.list(1);
-                                Swal.fire(
-                                    '删除成功!',
-                                    '删除成功!',
-                                    'success'
-                                )
+                                toast.success("删除成功！")
                             }
                         })
                     }
