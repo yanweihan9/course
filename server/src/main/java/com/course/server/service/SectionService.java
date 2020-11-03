@@ -79,5 +79,5 @@ public class SectionService {
      */
     public Integer delete(String id) {
         return sectionMapper.deleteByPrimaryKey(id);
-    }
+            }
 }

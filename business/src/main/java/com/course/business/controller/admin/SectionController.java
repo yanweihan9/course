@@ -20,7 +20,7 @@ public class SectionController {
     @Resource
     private SectionService sectionService;
 
-    public static final String BUSINESS_NAME = "";
+    public static final String BUSINESS_NAME = "小节";
 
     /**
      * 列表
@@ -43,7 +43,6 @@ public class SectionController {
      */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody SectionDto sectionDto) {
-
         ResponseDto responseDto = new ResponseDto();
         responseDto.setContent(sectionService.save(sectionDto));
         return responseDto;

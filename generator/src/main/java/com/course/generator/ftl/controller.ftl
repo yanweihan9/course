@@ -1,10 +1,9 @@
-package com.course.business.controller.admin;
+package com.course.${module}.controller.admin;
 
-import com.course.server.dto.${Domain}Dto;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
+import com.course.server.dto.${Domain}Dto;
 import com.course.server.service.${Domain}Service;
-import com.course.server.utils.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ public class ${Domain}Controller {
 @Resource
 private ${Domain}Service ${domain}Service;
 
-public static final String BUSINESS_NAME = "";
+public static final String BUSINESS_NAME = "${tableNameCn}";
 
 /**
 * 列表
@@ -44,7 +43,6 @@ return responseDto;
 */
 @PostMapping("/save")
 public ResponseDto save(@RequestBody ${Domain}Dto ${domain}Dto) {
-
 ResponseDto responseDto = new ResponseDto();
 responseDto.setContent(${domain}Service.save(${domain}Dto));
 return responseDto;
