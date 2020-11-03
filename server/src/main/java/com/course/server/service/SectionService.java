@@ -28,13 +28,16 @@ public class SectionService {
      * @param page
      * @return
      */
-    public PageDto<SectionDto> list(PageDto<SectionDto> page) {
+    public PageDto
+            <SectionDto> list(PageDto
+                                      <SectionDto> page) {
         PageHelper.startPage(page.getPage(), page.getSize());
         SectionExample sectionExample = new SectionExample();
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
         PageInfo<Section> pageInfo = new PageInfo<>(sectionList);
         page.setTotal(pageInfo.getTotal());
-        List<SectionDto> sectionDtoList = CollectionUtils.convert(sectionList, SectionDto.class);
+        List
+                <SectionDto> sectionDtoList = CollectionUtils.convert(sectionList, SectionDto.class);
         page.setList(sectionDtoList);
         return page;
     }
