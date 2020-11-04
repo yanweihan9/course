@@ -1,5 +1,8 @@
 package com.course.generator.enums;
 
+import com.course.server.enums.SectionChargeEnum;
+import com.course.server.enums.YesNoEnum;
+
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
@@ -8,15 +11,15 @@ import java.util.regex.Pattern;
 
 public class EnumGenerator {
     //    static String path = "admin\\public\\static\\js\\enums.js";
-    static String path = "web\\public\\static\\js\\enums.js";
+    static String path = "admin\\public\\static\\js\\enum.js";
 
     public static void main(String[] args) {
         StringBuffer bufferObject = new StringBuffer();
         StringBuffer bufferArray = new StringBuffer();
         long begin = System.currentTimeMillis();
         try {
-//            toJson(SectionChargeEnum.class, bufferObject, bufferArray);
-//            toJson(YesNoEnum.class, bufferObject, bufferArray);
+            toJson(SectionChargeEnum.class, bufferObject, bufferArray);
+            toJson(YesNoEnum.class, bufferObject, bufferArray);
 //            toJson(CourseLevelEnum.class, bufferObject, bufferArray);
 //            toJson(CourseChargeEnum.class, bufferObject, bufferArray);
 //            toJson(CourseStatusEnum.class, bufferObject, bufferArray);

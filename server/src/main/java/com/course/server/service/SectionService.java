@@ -4,6 +4,7 @@ import com.course.server.domain.Section;
 import com.course.server.domain.SectionExample;
 import com.course.server.dto.SectionDto;
 import com.course.server.dto.PageDto;
+import com.course.server.enums.CourseChargeEnum;
 import com.course.server.mapper.SectionMapper;
 import com.course.server.utils.CollectionUtils;
 import com.course.server.utils.CopyUtil;
@@ -62,6 +63,7 @@ public class SectionService {
         Date now = new Date();
         section.setCreatedAt(now);
         section.setUpdatedAt(now);
+        section.setCharge(CourseChargeEnum.CHARGE.getCode());
         sectionMapper.insert(section);
         return sectionDto;
     }
