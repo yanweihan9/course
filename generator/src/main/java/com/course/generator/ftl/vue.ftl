@@ -13,18 +13,25 @@
         </p>
         <pagination ref="pagination" v-bind:list="list"></pagination>
         <table id="simple-table" class="table  table-bordered table-hover">
-            <Title></Title>
+            <thead>
+            <tr>
+                <#list fieldList as field>
+                    <th>${field.nameCn}</th>
+                </#list>
+                <th>操作</th>
+            </tr>
+            </thead>
             <tbody>
-            <tr v-for="chapter in chapters">
-                <td>{{chapter.id}}</td>
-                <td>{{chapter.courseId}}</td>
-                <td>{{chapter.name}}</td>
+            <tr v-for="${domain} in ${domain}s">
+                <#list fieldList as field>
+                    <td>{{${domain}.${field.nameHump}}}</td>
+                </#list>
                 <td>
                     <div class="hidden-sm hidden-xs btn-group">
-                        <button v-on:click="edit(chapter)" class="btn btn-xs btn-info">
+                        <button v-on:click="edit(${domain})" class="btn btn-xs btn-info">
                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                         </button>
-                        <button v-on:click="del(chapter.id)" class="btn btn-xs btn-danger">
+                        <button v-on:click="del(${domain}.id)" class="btn btn-xs btn-danger">
                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         </button>
                     </div>
@@ -37,23 +44,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                                    aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">表单</h4>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">名称</label>
-                                <div class="col-sm-10">
-                                    <input v-model="chapter.name" class="form-control" placeholder="名称">
+                            <#list fieldList as field>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">${field.nameCn}</label>
+                                    <div class="col-sm-10">
+                                        <input v-model="${domain}.${field.nameHump}" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">课程id</label>
-                                <div class="col-sm-10">
-                                    <input v-model="chapter.courseId" class="form-control" placeholder="课程id">
-                                </div>
-                            </div>
+                            </#list>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -70,17 +73,20 @@
     import Pagination from '../../components/pagination';
 
     export default {
-        name: 'chapter',
+        name: '${domain}',
         data: function () {
             return {
-                chapter: {},
-                chapters: []
+            ${domain}:
+            {
             }
+        ,
+            ${domain}s: []
+        }
         },
         components: {Title, Pagination},
         mounted: function () {
             // 页面激活方式一
-            // this.$parent.activeSidebar("business-chapter-sidebar")
+            // this.$parent.activeSidebar("${module}-${domain}-sidebar")
             let _this = this;
             _this.$refs.pagination.size = 5;
             _this.list(1);
@@ -88,12 +94,12 @@
         methods: {
             add() {
                 let _this = this;
-                _this.chapter = {};
+                _this.${domain} = {};
                 $(".modal").modal("show");
             },
-            edit(chapter) {
+            edit(${domain}) {
                 let _this = this;
-                _this.chapter = $.extend({}, chapter);
+                _this.${domain} = $.extend({}, ${domain});
                 $(".modal").modal("show");
             },
 
@@ -103,13 +109,13 @@
             list(page) {
                 let _this = this;
                 Loading.show();
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/list', {
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/list', {
                     page: page,
                     size: _this.$refs.pagination.size,
                 }).then((response) => {
                     Loading.hide();
                     let resp = response.data;
-                    _this.chapters = resp.content.list;
+                    _this.${domain}s = resp.content.list;
                     _this.$refs.pagination.render(page, resp.content.total);
                 })
             },
@@ -119,15 +125,9 @@
              */
             save() {
                 let _this = this;
-                if (!Validator.require(_this.chapter.name, "名称")
-                    || !Validator.require(_this.chapter.courseId, "课程id")
-                    || !Validator.length(_this.chapter.courseId, "课程id", 1, 8)
-                ) {
-                    return;
-                }
                 Loading.show();
-                _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/save',
-                    _this.chapter).then((response) => {
+                _this.$ajax.post(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/save',
+                    _this.${domain}).then((response) => {
                     Loading.hide();
                     let resp = response.data;
                     if (resp.success) {
@@ -145,9 +145,9 @@
              */
             del(id) {
                 let _this = this;
-                Confirm.show("删除后不可恢复，确认删除?", function () {
+                Confirm.show("删除${tableNameCn}后不可恢复，确认删除?", function () {
                     Loading.show();
-                    _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/chapter/delete/' + id).then((response) => {
+                    _this.$ajax.delete(process.env.VUE_APP_SERVER + '/${module}/admin/${domain}/delete/' + id).then((response) => {
                         Loading.hide();
                         let resp = response.data;
                         if (resp.success) {
