@@ -199,6 +199,14 @@
              */
             save() {
                 let _this = this;
+                //保存校验
+                if (1 != 1
+                    || !Validator.require(_this.section.Title(), "标题")
+                    || !Validator.length(_this.section.Title(), "标题", 1, 50)
+                    || !Validator.length(_this.section.Video(), "视频", 1, 200)
+                ) {
+                    return ;
+                }
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/section/save',
                     _this.section).then((response) => {
