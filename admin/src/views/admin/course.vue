@@ -101,7 +101,7 @@
                                 <label class="col-sm-2 control-label">级别</label>
                                 <div class="col-sm-10">
                                     <select v-model="course.level" class="form-control">
-                                        <option v-for="o in COURSE_LEVEL" v-bind:value="o.key">{{o.value}}</option>
+                                        <option v-for="o in COURSE_LEVEL" v-bind:value="o.key"></option>
                                     </select>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                 <label class="col-sm-2 control-label">收费</label>
                                 <div class="col-sm-10">
                                     <select v-model="course.charge" class="form-control">
-                                        <option v-for="o in COURSE_CHARGE" v-bind:value="o.key">{{o.value}}</option>
+                                        <option v-for="o in COURSE_CHARGE" v-bind:value="o.key"></option>
                                     </select>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                                 <label class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-10">
                                     <select v-model="course.status" class="form-control">
-                                        <option v-for="o in COURSE_STATUS" v-bind:value="o.key">{{o.value}}</option>
+                                        <option v-for="o in COURSE_STATUS" v-bind:value="o.key"></option>
                                     </select>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                 courses: [],
                 COURSE_LEVEL: COURSE_LEVEL,
                 COURSE_CHARGE: COURSE_CHARGE,
-                COURSE_STATUS: COURSE_STATUS
+                COURSE_STATUS: COURSE_STATUS,
             }
         },
         components: {Title, Pagination},
