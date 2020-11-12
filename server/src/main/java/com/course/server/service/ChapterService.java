@@ -3,6 +3,7 @@ package com.course.server.service;
 import com.course.server.domain.Chapter;
 import com.course.server.domain.ChapterExample;
 import com.course.server.dto.ChapterDto;
+import com.course.server.dto.ChapterPageDto;
 import com.course.server.dto.PageDto;
 import com.course.server.mapper.ChapterMapper;
 import com.course.server.utils.CollectionUtils;
@@ -25,21 +26,22 @@ public class ChapterService {
     /**
      * 列表
      *
-     * @param page
+     * @param chapterPageDto
      * @return
      */
-    public PageDto
-            <ChapterDto> list(PageDto
-                                      <ChapterDto> page) {
-        PageHelper.startPage(page.getPage(), page.getSize());
+    public PageDto<ChapterDto> list(ChapterPageDto chapterPageDto) {
+        PageHelper.startPage(chapterPageDto.getPage(), chapterPageDto.getSize());
         ChapterExample chapterExample = new ChapterExample();
+        ChapterExample.Criteria criteria = chapterExample.createCriteria();
+        if (!StringUtils.isEmpty(chapterPageDto.getCourseId())) {
+            criteria.andCourseIdEqualTo(chapterPageDto.getCourseId());
+        }
         List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
         PageInfo<Chapter> pageInfo = new PageInfo<>(chapterList);
-        page.setTotal(pageInfo.getTotal());
-        List
-                <ChapterDto> chapterDtoList = CollectionUtils.convert(chapterList, ChapterDto.class);
-        page.setList(chapterDtoList);
-        return page;
+        chapterPageDto.setTotal(pageInfo.getTotal());
+        List<ChapterDto> chapterDtoList = CollectionUtils.convert(chapterList, ChapterDto.class);
+        chapterPageDto.setList(chapterDtoList);
+        return chapterPageDto;
     }
 
     /**

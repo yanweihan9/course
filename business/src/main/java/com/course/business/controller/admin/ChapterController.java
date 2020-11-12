@@ -1,9 +1,10 @@
 package com.course.business.controller.admin;
 
-import com.course.server.dto.PageDto;
+import com.course.server.dto.ChapterPageDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.dto.ChapterDto;
 import com.course.server.service.ChapterService;
+import com.course.server.utils.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +26,14 @@ public class ChapterController {
     /**
      * 列表
      *
-     * @param pageDto
+     * @param chapterPageDto
      * @return
      */
     @PostMapping("/list")
-    public ResponseDto list(@RequestBody PageDto pageDto) {
+    public ResponseDto list(@RequestBody ChapterPageDto chapterPageDto) {
         ResponseDto responseDto = new ResponseDto();
-        responseDto.setContent(chapterService.list(pageDto));
+        ValidatorUtil.require(chapterPageDto.getCourseId(),"课程ID");
+        responseDto.setContent(chapterService.list(chapterPageDto));
         return responseDto;
     }
 

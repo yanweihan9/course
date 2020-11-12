@@ -23,8 +23,8 @@
             <tbody>
             <tr v-for="chapter in chapters">
                 <td>{{chapter.id}}</td>
-                <td>{{chapter.courseId}}</td>
                 <td>{{chapter.name}}</td>
+                <td>{{chapter.courseId}}</td>
                 <td>
                     <div class="hidden-sm hidden-xs btn-group">
                         <button v-on:click="edit(chapter)" class="btn btn-xs btn-info">
@@ -55,9 +55,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">课程id</label>
+                                <label class="col-sm-2 control-label">课程</label>
                                 <div class="col-sm-10">
-                                    <input v-model="chapter.courseId" class="form-control" placeholder="课程id">
+                                    <p class="form-control-static">{{course.name}}</p>
                                 </div>
                             </div>
                         </form>
@@ -119,6 +119,7 @@
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/list', {
                     page: page,
                     size: _this.$refs.pagination.size,
+                    courseId: _this.course.id
                 }).then((response) => {
                     Loading.hide();
                     let resp = response.data;
@@ -133,11 +134,11 @@
             save() {
                 let _this = this;
                 if (!Validator.require(_this.chapter.name, "名称")
-                    || !Validator.require(_this.chapter.courseId, "课程id")
                     || !Validator.length(_this.chapter.courseId, "课程id", 1, 8)
                 ) {
                     return;
                 }
+                _this.chapter.courseId = _this.course.id;
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/chapter/save',
                     _this.chapter).then((response) => {
