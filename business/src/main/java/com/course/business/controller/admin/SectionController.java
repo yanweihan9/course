@@ -3,6 +3,7 @@ package com.course.business.controller.admin;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.dto.SectionDto;
+import com.course.server.dto.SectionPageDto;
 import com.course.server.service.SectionService;
 import lombok.extern.slf4j.Slf4j;
 import com.course.server.utils.ValidatorUtil;
@@ -26,13 +27,15 @@ public class SectionController {
     /**
      * 列表
      *
-     * @param pageDto
+     * @param sectionPageDto
      * @return
      */
     @PostMapping("/list")
-    public ResponseDto list(@RequestBody PageDto pageDto) {
+    public ResponseDto list(@RequestBody SectionPageDto sectionPageDto) {
         ResponseDto responseDto = new ResponseDto();
-        responseDto.setContent(sectionService.list(pageDto));
+        ValidatorUtil.require(sectionPageDto.getCourseId(), "课程ID");
+        ValidatorUtil.require(sectionPageDto.getChapterId(), "大章ID");
+        responseDto.setContent(sectionService.list(sectionPageDto));
         return responseDto;
     }
 
