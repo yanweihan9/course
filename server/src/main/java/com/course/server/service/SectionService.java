@@ -13,6 +13,7 @@ import com.course.server.utils.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -58,7 +59,8 @@ public class SectionService {
      * @param sectionDto
      * @return
      */
-    public SectionDto save(SectionDto sectionDto) {
+    @Transactional
+    public SectionDto save(SectionDto sectionDto){
         if (StringUtils.isEmpty(sectionDto.getId())) {
             insert(sectionDto);
             return sectionDto;
