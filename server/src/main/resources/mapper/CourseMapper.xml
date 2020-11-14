@@ -76,7 +76,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, summary, `time`, price, image, `level`, charge, `status`, enroll, sort, 
+    id, `name`, summary, `time`, price, image, `level`, charge, `status`, enroll, sort,
     created_at, updated_at, teacher_id
   </sql>
   <select id="selectByExample" parameterType="com.course.server.domain.CourseExample" resultMap="BaseResultMap">
@@ -94,7 +94,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from course
     where id = #{id,jdbcType=CHAR}
@@ -110,15 +110,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.course.server.domain.Course">
-    insert into course (id, `name`, summary, 
-      `time`, price, image, 
-      `level`, charge, `status`, enroll, 
-      sort, created_at, updated_at, 
+    insert into course (id, `name`, summary,
+      `time`, price, image,
+      `level`, charge, `status`, enroll,
+      sort, created_at, updated_at,
       teacher_id)
-    values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{time,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{image,jdbcType=VARCHAR}, 
-      #{level,jdbcType=CHAR}, #{charge,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{enroll,jdbcType=INTEGER}, 
-      #{sort,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
+      #{time,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{image,jdbcType=VARCHAR},
+      #{level,jdbcType=CHAR}, #{charge,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{enroll,jdbcType=INTEGER},
+      #{sort,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP},
       #{teacherId,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.course.server.domain.Course">
@@ -349,5 +349,16 @@
       updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       teacher_id = #{teacherId,jdbcType=CHAR}
     where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <update id="updateTime">
+    update course c
+    set time = (
+      select sum(time)
+      from section
+      where course_id = #{courseId}
+    )
+    where
+    c.id = #{courseId}
   </update>
 </mapper>

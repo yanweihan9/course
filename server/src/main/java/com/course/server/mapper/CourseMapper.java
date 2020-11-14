@@ -2,8 +2,9 @@ package com.course.server.mapper;
 
 import com.course.server.domain.Course;
 import com.course.server.domain.CourseExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CourseMapper {
     long countByExample(CourseExample example);
@@ -27,4 +28,11 @@ public interface CourseMapper {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+
+    /**
+     * 更新时长
+     *
+     * @param courseId
+     */
+    void updateTime(@Param("courseId") String courseId);
 }

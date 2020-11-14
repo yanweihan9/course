@@ -10,6 +10,7 @@ import com.course.server.utils.CopyUtil;
 import com.course.server.utils.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Date;
 
 @Service
+@Slf4j
 public class CourseService {
 
     @Resource
@@ -29,7 +31,7 @@ public class CourseService {
      * @param page
      * @return
      */
-    public PageDto<CourseDto> list(PageDto <CourseDto> page) {
+    public PageDto<CourseDto> list(PageDto<CourseDto> page) {
         PageHelper.startPage(page.getPage(), page.getSize());
         CourseExample courseExample = new CourseExample();
         courseExample.setOrderByClause("sort asc");
@@ -82,5 +84,15 @@ public class CourseService {
      */
     public Integer delete(String id) {
         return courseMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 更新课程时长
+     *
+     * @param courseId
+     */
+    public void updateTime(String courseId) {
+        log.info("更新时长：{}", courseId);
+        courseMapper.updateTime(courseId);
     }
 }

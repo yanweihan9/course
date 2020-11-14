@@ -24,6 +24,8 @@ public class SectionService {
 
     @Resource
     private SectionMapper sectionMapper;
+    @Resource
+    private CourseService courseService;
 
     /**
      * 列表
@@ -62,6 +64,7 @@ public class SectionService {
             return sectionDto;
         }
         update(sectionDto);
+        courseService.updateTime(sectionDto.getCourseId());
         return sectionDto;
     }
 
