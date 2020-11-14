@@ -194,6 +194,10 @@
                             }
                         }
                     }
+                    _this.level2 = [];
+                    setTimeout(function () {
+                        $("tr.active").trigger("click");
+                    },100);
                 })
             },
 
