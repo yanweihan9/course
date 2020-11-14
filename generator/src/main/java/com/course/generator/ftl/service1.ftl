@@ -5,13 +5,13 @@ import com.course.server.domain.${Domain}Example;
 import com.course.server.dto.${Domain}Dto;
 import com.course.server.dto.PageDto;
 import com.course.server.mapper.${Domain}Mapper;
+import com.course.server.utils.CollectionUtils;
 import com.course.server.utils.CopyUtil;
 import com.course.server.utils.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,21 +21,20 @@ import java.util.Date;
     </#if>
 </#list>
 
-/**
-* @author Administrator
-*/
 @Service
-@Slf4j
 public class ${Domain}Service {
 
     @Resource
     private ${Domain}Mapper ${domain}Mapper;
 
     /**
-     * 列表查询
+     * 列表
+     *
+     * @param page
+     * @return
      */
-    public void list(PageDto pageDto) {
-        PageHelper.startPage(pageDto.getPage(), pageDto.getSize());
+    public PageDto<${Domain}Dto> list(PageDto<${Domain}Dto> page) {
+        PageHelper.startPage(page.getPage(), page.getSize());
         ${Domain}Example ${domain}Example = new ${Domain}Example();
         <#list fieldList as field>
             <#if field.nameHump=='sort'>
@@ -44,32 +43,31 @@ public class ${Domain}Service {
         </#list>
         List<${Domain}> ${domain}List = ${domain}Mapper.selectByExample(${domain}Example);
         PageInfo<${Domain}> pageInfo = new PageInfo<>(${domain}List);
-        pageDto.setTotal(pageInfo.getTotal());
-        List<${Domain}Dto> ${domain}DtoList = CopyUtil.copyList(${domain}List, ${Domain}Dto.class);
-        pageDto.setList(${domain}DtoList);
+        page.setTotal(pageInfo.getTotal());
+        List<${Domain}Dto> ${domain}DtoList = CollectionUtils.convert(${domain}List, ${Domain}Dto.class);
+        page.setList(${domain}DtoList);
+        return page;
     }
 
     /**
-     * 保存，id有值时更新，无值时新增
+     * 保存
+     *
+     * @param ${domain}Dto
+     * @return
      */
-    public void save(${Domain}Dto ${domain}Dto) {
-        ${Domain} ${domain} = CopyUtil.copy(${domain}Dto, ${Domain}.class);
+    public ${Domain}Dto save(${Domain}Dto ${domain}Dto) {
         if (StringUtils.isEmpty(${domain}Dto.getId())) {
-            this.insert(${domain});
-        } else {
-            this.update(${domain});
+            insert(${domain}Dto);
+            return ${domain}Dto;
         }
+        update(${domain}Dto);
+        return ${domain}Dto;
     }
 
-    /**
-     * 新增
-     */
-    private void insert(${Domain} ${domain}) {
-        <#list typeSet as type>
-            <#if type=='Date'>
+    private ${Domain}Dto insert(${Domain}Dto ${domain}Dto) {
+        ${domain}Dto.setId(UuidUtil.getShortUuid());
+        ${Domain} ${domain} = CopyUtil.copy(${domain}Dto, ${Domain}.class);
         Date now = new Date();
-            </#if>
-        </#list>
         <#list fieldList as field>
             <#if field.nameHump=='createdAt'>
         ${domain}.setCreatedAt(now);
@@ -78,26 +76,29 @@ public class ${Domain}Service {
         ${domain}.setUpdatedAt(now);
             </#if>
         </#list>
-        ${domain}.setId(UuidUtil.getShortUuid());
         ${domain}Mapper.insert(${domain});
+        return ${domain}Dto;
     }
 
-    /**
-     * 更新
-     */
-    private void update(${Domain} ${domain}) {
+    private ${Domain}Dto update(${Domain}Dto ${domain}Dto) {
+        ${Domain} ${domain} = CopyUtil.copy(${domain}Dto, ${Domain}.class);
+        Date now = new Date();
         <#list fieldList as field>
             <#if field.nameHump=='updatedAt'>
-        ${domain}.setUpdatedAt(new Date());
+        ${domain}.setUpdatedAt(now);
             </#if>
         </#list>
         ${domain}Mapper.updateByPrimaryKey(${domain});
+        return ${domain}Dto;
     }
 
     /**
      * 删除
+     *
+     * @param id
+     * @return
      */
-    public void delete(String id) {
-        ${domain}Mapper.deleteByPrimaryKey(id);
+    public Integer delete(String id) {
+        return ${domain}Mapper.deleteByPrimaryKey(id);
     }
 }
