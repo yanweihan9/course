@@ -3,6 +3,7 @@ package com.course.business.controller.admin;
 import com.course.server.dto.PageDto;
 import com.course.server.dto.ResponseDto;
 import com.course.server.dto.CourseDto;
+import com.course.server.service.CourseCategoryService;
 import com.course.server.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
 import com.course.server.utils.ValidatorUtil;
@@ -20,6 +21,9 @@ public class CourseController {
 
     @Resource
     private CourseService courseService;
+    @Resource
+    private CourseCategoryService courseCategoryService;
+
 
     public static final String BUSINESS_NAME = "课程";
 
@@ -66,4 +70,12 @@ public class CourseController {
         responseDto.setContent(courseService.delete(id));
         return responseDto;
     }
+
+    @PostMapping("/list-category/{courseId}")
+    public ResponseDto listCategory(@PathVariable("courseId") String courseId) {
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setContent(courseCategoryService.listByCourse(courseId));
+        return responseDto;
+    }
+
 }

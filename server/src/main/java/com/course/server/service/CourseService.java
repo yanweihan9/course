@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -24,6 +25,9 @@ public class CourseService {
 
     @Resource
     private CourseMapper courseMapper;
+
+    @Resource
+    private CourseCategoryService courseCategoryService;
 
     /**
      * 列表
@@ -49,12 +53,14 @@ public class CourseService {
      * @param courseDto
      * @return
      */
+    @Transactional
     public CourseDto save(CourseDto courseDto) {
         if (StringUtils.isEmpty(courseDto.getId())) {
             insert(courseDto);
             return courseDto;
         }
         update(courseDto);
+        courseCategoryService.saveBatch(courseDto.getId(), courseDto.getCategorys());
         return courseDto;
     }
 
